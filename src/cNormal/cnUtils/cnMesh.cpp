@@ -5,6 +5,10 @@
 
 #include <stdio.h>
 
+cnMesh::cnMesh()
+: verts(), polygons() {
+}
+
 cnMesh::cnMesh(uint vertexCount, uint polygonCount)
 : verts(vertexCount), polygons(polygonCount) {
 
@@ -21,6 +25,23 @@ cnMesh::cnMesh(const cnMesh* other) {
 }
 
 cnMesh::~cnMesh() {
+}
+
+bool cnMesh::resize(uint vertexCount, uint polygonCount) {
+    verts.resize(vertexCount);
+    polygons.resize(polygonCount);
+    return true;
+}
+
+bool cnMesh::validate() const {
+    const uint vertexCount = getVertexCount();
+    const uint polygonCount = getPolygonCount();
+    for (uint i=0; i < polygonCount; ++i) {
+        const cnPolygon& p = polygon(i);
+        if (p.a >= vertexCount || p.b >= vertexCount || p.c >= vertexCount)
+            return false;
+    }
+    return true;
 }
 
 cnVector& cnMesh::point(uint index) {

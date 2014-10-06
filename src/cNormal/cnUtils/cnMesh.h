@@ -20,6 +20,9 @@
 
         public:
 
+            // Construct a cnMesh object without vertices and polygons.
+            cnMesh();
+
             // Construct a cnMesh object with the given size.
             // @param unsigned int vertexCount: The number of vertices of the mesh.
             // @param unsigned int polygonCount: The number of polygons of the mesh.
@@ -31,6 +34,14 @@
             cnMesh(const cnMesh& other);
             cnMesh(const cnMesh* other);
             ~cnMesh();
+
+            // Resize the mesh's vertex and polygon count.
+            // Returns true on success, false on failure.
+            bool resize(uint vertexCount, uint polygonCount);
+
+            // Ensures that the polygon indices are in the accepted
+            // vertex index range. Returns false if they're not.
+            bool validate() const;
 
             // Return a reference to the 3d point at given index.
             // @param unsigned int index: The 3d points index.

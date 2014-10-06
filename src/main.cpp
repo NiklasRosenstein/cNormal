@@ -1,6 +1,8 @@
 #define DEBUG
 
 #include "cNormal/cNormal.h"
+#include "cNormal/cnGenerateMesh.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <iostream>
@@ -49,65 +51,6 @@
     }
 #endif
 
-#if 1 // mesh creations
-    cnMesh* cnConstructPlane() {
-        cnMesh* mesh = new cnMesh(4, 2);
-        mesh->point(0) = cnVector(0, 0, 0);
-        mesh->point(1) = cnVector(0, 0, 100);
-        mesh->point(2) = cnVector(100, 0, 100);
-        mesh->point(3) = cnVector(100, 0, 0);
-
-        mesh->uvpoint(0) = cnVector(0, 0);
-        mesh->uvpoint(1) = cnVector(0, .5);
-        mesh->uvpoint(2) = cnVector(.5, .5);
-        mesh->uvpoint(3) = cnVector(.5, .5);
-
-        mesh->polygon(0) = cnPolygon(0, 1, 2);
-        mesh->polygon(1) = cnPolygon(0, 2, 3);
-        return mesh;
-    }
-    #define cV cnVector
-    #define cP cnPolygon
-    cnMesh* cnConstructCube() {
-        cnMesh* mesh = new cnMesh(8, 12);
-        cnVertex verts[8] = {
-            cnVertex( cV(-50, -50, -50), cV(0.649, 0.649) ),
-            cnVertex( cV(-50,  50, -50), cV(0.018, 0.982) ),
-            cnVertex( cV( 50, -50, -50), cV(0.649, 0.685) ),
-            cnVertex( cV( 50,  50, -50), cV(0.315, 0.982) ),
-            cnVertex( cV( 50, -50,  50), cV(0.649, 0.982) ),
-            cnVertex( cV( 50,  50,  50), cV(0.315, 0.685) ),
-            cnVertex( cV(-50, -50,  50), cV(0.351, 0.982) ),
-            cnVertex( cV(-50,  50,  50), cV(0.649, 0.018) )
-        };
-
-        cnPolygon polys[12] = {
-            cP(0, 1, 3), // 0
-            cP(2, 3, 5), // 1
-            cP(4, 5, 7), // 2
-            cP(6, 7, 1), // 3
-            cP(1, 7, 5), // 4
-            cP(6, 0, 2), // 5
-            cP(0, 3, 2), // 6
-            cP(2, 5, 4), // 7
-            cP(4, 7, 6), // 8
-            cP(6, 1, 0), // 9
-            cP(1, 5, 3), // 10
-            cP(6, 2, 4)  // 11
-        };
-
-        for (int i = 0; i < 8; i++) {
-            mesh->vertex(i) = verts[i];
-        }
-
-        for (int i = 0; i < 12; i++) {
-            mesh->polygon(i) = polys[i];
-        }
-
-        return mesh;
-    }
-#endif
-
 #if 1 // other stuff
     void cnTestComputeIntersection() {
         using namespace std;
@@ -145,7 +88,20 @@
 #endif
 
 int main() {
-    // end();
+    cnMesh mesh;
+    if (!cnCreateCube(mesh, cnVector(100, 100, 100))) {
+        std::cerr << "cnCreateCube() failed\n";
+    }
+    else {
+        std::cout << "cnCreateCube() succeeded. " << mesh.getVertexCount() << " vertices, " << mesh.getPolygonCount() << " polygons.\n";
+    }
+    if (!cnCreatePlane(mesh, 10, 10, 100, 100)) {
+        std::cerr << "cnCreatePlane() failed\n";
+    }
+    else {
+        std::cout << "cnCreatePlane() succeeded. " << mesh.getVertexCount() << " vertices, " << mesh.getPolygonCount() << " polygons.\n";
+    }
+    return 0;
 }
 
 
