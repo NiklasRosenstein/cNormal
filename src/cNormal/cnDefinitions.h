@@ -9,6 +9,8 @@
     #define true    (1)
     #define false   (0)
 
-    #define uint    unsigned int
+    #ifndef uint_defined
+    typedef unsigned int uint;
+    #endif /* uint_defined */
 
 #endif // _CNORMAL_DEFINITIONS_H

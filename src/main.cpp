@@ -2,6 +2,8 @@
 
 #include "cNormal/cNormal.h"
 #include <stdlib.h>
+#include <stdio.h>
+#include <iostream>
 
 #if 1 // memory overview
     uint totalAllocs = 0;
@@ -17,24 +19,27 @@
         free(p);
     }
     void end() {
-        cout << "\n\n.................................\n";
-        cout << "Total allocations:      " << totalAllocs << endl;
-        cout << "Total deallocations:    " << totalDeallc << endl;
-        cout << "Total memory allocated: " << totalMemory << " Bytes" << endl;
-}
+        using namespace std;
+        printf("\n\n.................................\n");
+        printf("Total allocations:      %u\n", totalAllocs);
+        printf("Total deallocations:    %u\n", totalDeallc);
+        printf("Total memory allocated: %u\n", totalMemory);
+    }
 #endif
 
 #if 1 // print functions
     void print(cnVector v) {
-        cout << "cnVector(" << v.x << ", " << v.y << ", " << v.z << ")" << endl;
+        std::cout << "cnVector(" << v.x << ", " << v.y << ", " << v.z << ")\n";
     }
     void print(cnVertex v) {
+        using namespace std;
         cout << "cnVertex {\n";
         cout << "    "; print(v.WORLD);
         cout << "    "; print(v.UV);
         cout << "}\n";
     }
     void print(cnMatrix m) {
+        using namespace std;
         cout << "cnMatrix {\n";
         cout << "    "; print(m.T);
         cout << "    "; print(m.B);
@@ -99,15 +104,14 @@
             mesh->polygon(i) = polys[i];
         }
 
-        delete verts;
-        delete polys;
-
         return mesh;
     }
 #endif
 
 #if 1 // other stuff
     void cnTestComputeIntersection() {
+        using namespace std;
+
         cnVector v1(0),
                  v2(50, 0, 0),
                  v3(0, 0, 50);
@@ -140,17 +144,8 @@
     }
 #endif
 
-
-void myMain() {
-}
 int main() {
-    try {
-        myMain();
-    }
-    catch (cnException& e) {
-        cout << "\nException occured.\n";
-    }
-    end();
+    // end();
 }
 
 

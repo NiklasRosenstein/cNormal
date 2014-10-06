@@ -3,7 +3,6 @@
 // additional offset attribute.
 
 #include "cnVector.h"
-#include "../cnStorage/cnArray.h"
 
 #ifndef _CNORMAL_UTILS_MATRIX_H
 #define _CNORMAL_UTILS_MATRIX_H
@@ -47,14 +46,19 @@
             // @param const cnMatrix&: The other matrix.
             // @return cnMatrix
             cnMatrix operator + (const cnMatrix& mOther) const;
-            cnMatrix operator - (const cnMatrix& mOther) const;
             cnMatrix operator * (const cnMatrix& mOther) const;
-            cnMatrix operator / (const cnMatrix& mOther) const;
+
+            // Assignment math operators.
+            // @param const cnMatrix&: The other matrix.
+            // @return cnMatrix&
+            cnMatrix& operator += (const cnMatrix& mOther);
+            cnMatrix& operator *= (const cnMatrix& mOther);
 
             // Scale the matrix by a scalar.
             // @param double scalar: The scalar.
             // @return cnMatrix
             cnMatrix operator / (const double& scalar) const;
+            cnMatrix& operator /= (const double& scalar);
 
             // Return the determinant of the matrix.
             // @return double: The determinant.
@@ -63,6 +67,9 @@
             // Return the normalized matrix.
             // @return cnMatrix
             cnMatrix getNormalized() const;
+
+            // Normalize this matrix.
+            cnMatrix& normalize();
     };
 
     // Mulitply a vector with a matrix. The matrix will serve
@@ -74,7 +81,5 @@
     // @param const cnMatrix& m: The matrix.
     // @return cnVector: The new vector.
     cnVector operator * (const cnVector& v, const cnMatrix& m);
-
-    typedef cnArray<cnMatrix> cnMatrixArray;
 
 #endif // _CNORMAL_UTILS_MATRIX_H

@@ -4,13 +4,11 @@
 #include "cnVertex.h"
 
 cnVertex::cnVertex()
-        : WORLD( cnVector() ),
-          UV( cnVector() ) {
+: WORLD(), UV() {
 }
 
 cnVertex::cnVertex(cnVector WORLD, cnVector UV)
-        : WORLD(WORLD),
-          UV(UV) {
+: WORLD(WORLD), UV(UV) {
 }
 
 

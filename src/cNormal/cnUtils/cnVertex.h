@@ -3,7 +3,6 @@
 // to define a vertex in a 3d mesh.
 
 #include "cnVector.h"
-#include "../cnStorage/cnArray.h"
 
 #ifndef _CNORMAL_UTILS_VERTEX_H
 #define _CNORMAL_UTILS_VERTEX_H
@@ -24,8 +23,6 @@
             cnVertex operator * (const cnVertex& vOther) const;
             cnVertex operator / (const cnVertex& vOther) const;
     };
-
-    typedef cnArray<cnVertex> cnVertexArray;
 
 #endif // _CNORMAL_UTILS_VERTEX_H
 

@@ -6,56 +6,59 @@
 #include <stdio.h>
 
 cnMesh::cnMesh(uint vertexCount, uint polygonCount)
-        : vertexCount(vertexCount),
-          polygonCount(polygonCount) {
-    verts = new cnVertexArray(vertexCount);
-    polygons = new cnPolygonArray(polygonCount);
+: verts(vertexCount), polygons(polygonCount) {
+
 }
 
 cnMesh::cnMesh(const cnMesh& other) {
-    printf("Copy constructor called. !! \n");
-    vertexCount = other.vertexCount;
-    polygonCount = other.polygonCount;
-    verts = other.verts->getCopy();
-    polygons = other.polygons->getCopy();
+    verts = other.verts;
+    polygons = other.polygons;
 }
 
 cnMesh::cnMesh(const cnMesh* other) {
-    vertexCount = other->vertexCount;
-    polygonCount = other->polygonCount;
-    verts = other->verts->getCopy();
-    polygons = other->polygons->getCopy();
+    verts = other->verts;
+    polygons = other->polygons;
 }
 
 cnMesh::~cnMesh() {
-    delete verts;
-    delete polygons;
-    verts = null;
-    polygons = null;
-    vertexCount = 0;
-    polygonCount = 0;
 }
 
 cnVector& cnMesh::point(uint index) {
-    return (*verts)[index].WORLD;
+    return verts[index].WORLD;
+}
+
+const cnVector& cnMesh::point(uint index) const {
+    return verts[index].WORLD;
 }
 
 cnVector& cnMesh::uvpoint(uint index) {
-    return (*verts)[index].UV;
+    return verts[index].UV;
+}
+
+const cnVector& cnMesh::uvpoint(uint index) const {
+    return verts[index].UV;
 }
 
 cnVertex& cnMesh::vertex(uint index) {
-    return (*verts)[index];
+    return verts[index];
+}
+
+const cnVertex& cnMesh::vertex(uint index) const {
+    return verts[index];
 }
 
 cnPolygon& cnMesh::polygon(uint index) {
-    return (*polygons)[index];
+    return polygons[index];
+}
+
+const cnPolygon& cnMesh::polygon(uint index) const {
+    return polygons[index];
 }
 
 uint cnMesh::getVertexCount() const {
-    return vertexCount;
+    return verts.size();
 }
 
 uint cnMesh::getPolygonCount() const {
-    return polygonCount;
+    return polygons.size();
 }

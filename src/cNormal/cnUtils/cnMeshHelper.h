@@ -3,14 +3,14 @@
 // a cnMesh object, such as matrices of polygons and vertices and
 // the indices of a vertices polygons.
 
-#include "cnMesh.h"
-
-#include "../cnDefinitions.h"
-#include "../cnStorage/cnStorage.h"
-#include "cnMatrix.h"
-
 #ifndef _CNORMAL_UTILS_MESHHELPER_H
 #define _CNORMAL_UTILS_MESHHELPER_H
+
+    #include "../cnDefinitions.h"
+    #include "cnMatrix.h"
+    #include "cnMesh.h"
+
+    #include <vector>
 
     class cnMeshHelper {
 
@@ -53,22 +53,21 @@
             // @param unsigned int index: The polygons index.
             // @throw cnIndexOutOfBoundsException: If `index` is out of bounds.
             // @return cnArray<int>*
-            cnArray<uint>* getVertexPolygons(uint) const;
-
+            const std::vector<uint>& getVertexPolygons(uint) const;
 
         private:
+
             // stores the matrices of every vertex in the
             // mesh the cnMeshHelper was initialized with
-            cnMatrixArray* vertexMatrices;
+            std::vector<cnMatrix> vertexMatrices;
 
             // stores the indices of the polygons a vertex
             // is connected with
-            cnArray< cnArray<uint>* >* vertexPolygons;
+            std::vector<std::vector<uint>> vertexPolygons;
 
             // stores the matrices of every polygon in the
             // mesh the cnMeshHelper was initialized with
-            cnMatrixArray* polygonMatrices;
-
+            std::vector<cnMatrix> polygonMatrices;
     };
 
 #endif // _CNORMAL_UTILS_MESHHELPER_H

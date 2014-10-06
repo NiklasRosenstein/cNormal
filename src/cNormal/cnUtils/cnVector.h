@@ -2,8 +2,6 @@
 // The cnVector class represents a point in 3 dimensional space.
 // It is also used to store 2 dimensional UV data.
 
-#include "../cnStorage/cnArray.h"
-
 #ifndef _CNORMAL_UTILS_VECTOR_H
 #define _CNORMAL_UTILS_VECTOR_H
 
@@ -80,8 +78,10 @@
             // @throw cnZeroDivisionException: if calling object is a 0-vector.
             // @return cnVector
             cnVector getNormalized() const;
-    };
 
-    typedef cnArray<cnVector> cnVectorArray;
+            // Normalize this vector.
+            // @throw cnZeroDivisionException: if calling object is a 0-vector.
+            cnVector& normalize();
+    };
 
 #endif // _CNORMAL_UTILS_VECTOR_H

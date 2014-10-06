@@ -11,9 +11,8 @@
     class cnException {
     };
 
-
-     // This exception is thrown when an accessor-index is not
-     // in ordinal range.
+    // This exception is thrown when an accessor-index is not
+    // in ordinal range.
     class cnIndexOutOfBoundsException : public cnException {
 
         public:
@@ -23,14 +22,19 @@
             cnIndexOutOfBoundsException(uint index, uint length);
     };
 
-     // This exception is thrown when for example dividing with a vector
-     // with a zero-component.
+    // This exception is thrown when for example dividing with a vector
+    // with a zero-component.
     class cnZeroDivisionException : public cnException {
     };
 
     // This exceptions is thrown if the Uv of a mesh is invalid
     // for normal mapping.
     class cnInvalidUvException : public cnException {
+    };
+
+    // This exception is thrown if a method or function is not
+    // already implemented.
+    class cnNotImplemented : public cnException {
     };
 
 #endif // _CNORMAL_EXCEPTIONS_H

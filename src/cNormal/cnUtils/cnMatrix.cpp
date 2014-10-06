@@ -8,31 +8,20 @@
 #define cnMatBy2(a, b, c, d) ( (a * d) - (b * c) )
 
 cnMatrix::cnMatrix()
-        : T( cnVector(1, 0, 0) ),
-          B( cnVector(0, 1, 0) ),
-          N( cnVector(0, 0, 1) ),
-          M( cnVector() ) {
+: T(cnVector(1, 0, 0)), B(cnVector(0, 1, 0)), N(cnVector(0, 0, 1)),
+  M() {
 }
 
 cnMatrix::cnMatrix(cnVector T, cnVector B, cnVector N)
-        : T(T),
-          B(B),
-          N(N),
-          M( cnVector() ) {
+: T(T), B(B), N(N), M() {
 }
 
 cnMatrix::cnMatrix(cnVector T, cnVector B, cnVector N, cnVector M)
-        : T(T),
-          B(B),
-          N(N),
-          M( M ) {
+: T(T), B(B), N(N), M(M) {
 }
 
 cnMatrix::cnMatrix(int)
-        : T( cnVector() ),
-          B( cnVector() ),
-          N( cnVector() ),
-          M( cnVector() ) {
+: T(), B(), N(), M() {
 }
 
 cnMatrix cnMatrix::operator + (const cnMatrix& mOther) const {
@@ -43,14 +32,6 @@ cnMatrix cnMatrix::operator + (const cnMatrix& mOther) const {
         M + mOther.M );
 }
 
-cnMatrix cnMatrix::operator - (const cnMatrix& mOther) const {
-    return cnMatrix (
-        T - mOther.T,
-        B - mOther.B,
-        N - mOther.N,
-        M - mOther.M );
-}
-
 cnMatrix cnMatrix::operator * (const cnMatrix& mOther) const {
     return cnMatrix (
         T * mOther.T,
@@ -59,20 +40,36 @@ cnMatrix cnMatrix::operator * (const cnMatrix& mOther) const {
         M * mOther.M );
 }
 
-cnMatrix cnMatrix::operator / (const cnMatrix& mOther) const {
-    return cnMatrix (
-        T / mOther.T,
-        B / mOther.B,
-        N / mOther.N,
-        M / mOther.M );
+cnMatrix& cnMatrix::operator += (const cnMatrix& mOther) {
+    T += mOther.T;
+    B += mOther.B;
+    N += mOther.N;
+    M += mOther.M;
+    return *this;
+}
+
+cnMatrix& cnMatrix::operator *= (const cnMatrix& mOther) {
+    T *= mOther.T;
+    B *= mOther.B;
+    N *= mOther.N;
+    M *= mOther.M;
+    return *this;
 }
 
 cnMatrix cnMatrix::operator / (const double& scalar) const {
     return cnMatrix (
-         T / scalar,
-         B / scalar,
-         N / scalar,
-         M / scalar );
+        T / scalar,
+        B / scalar,
+        N / scalar,
+        M / scalar );
+}
+
+cnMatrix& cnMatrix::operator /= (const double& scalar) {
+  T /= scalar;
+  B /= scalar;
+  N /= scalar;
+  M /= scalar;
+    return *this;
 }
 
 cnVector operator * (const cnVector& v, const cnMatrix& m) {
@@ -98,4 +95,11 @@ cnMatrix cnMatrix::getNormalized() const {
         B.getNormalized(),
         N.getNormalized(),
         M );
+}
+
+cnMatrix& cnMatrix::normalize() {
+  T.normalize();
+  B.normalize();
+  N.normalize();
+  return *this;
 }

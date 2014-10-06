@@ -26,3 +26,8 @@
 *.exe
 *.out
 *.app
+
+# MSVC
+*.pdb
+*.ilk
+*.exp

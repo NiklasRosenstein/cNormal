@@ -62,7 +62,7 @@ bool cnComputeTriangleIntersection(const cnRay& ray,
 
     intersection = v1 * (1 - u - v) + v2 * u + v3 * v;
 
-    if (u < 0.0 or v < 0.0 or u + v > 1.0) {
+    if (u < 0.0 || v < 0.0 || u + v > 1.0) {
         return false;
     }
     else {

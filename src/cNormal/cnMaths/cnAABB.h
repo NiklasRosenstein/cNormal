@@ -22,7 +22,9 @@
                      boxMax_;
     };
 
-    #include "cnAABB-inl.h"
+    inline bool cnAABB::pointWithin(cnVector& p) const {
+        return p.in(boxMin_, boxMax_);
+    }
 
 #endif // _CNORMAL_MATHS_AABB_H
 

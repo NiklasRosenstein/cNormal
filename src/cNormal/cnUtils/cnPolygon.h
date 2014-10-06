@@ -3,7 +3,6 @@
 // are links to the vertecies in a mesh.
 
 #include "../cnDefinitions.h"
-#include "../cnStorage/cnArray.h"
 
 #ifndef _CNORMAL_UTILS_POLYGON_H
 #define _CNORMAL_UTILS_POLYGON_H
@@ -22,7 +21,5 @@
             // @param unsigned int& c: The variable recieving the c index.
             void assign(uint& a, uint& b, uint& c) const;
     };
-
-    typedef cnArray<cnPolygon> cnPolygonArray;
 
 #endif // _CNORMAL_UTILS_POLYGON_H
