@@ -1,0 +1,21 @@
+
+load('compiler', 'c')
+load('platform', 'p')
+
+define('P', '$ProjectPath')
+define('B', '$BuildPath')
+define('BuildPath', '$ProjectPath/build')
+define('Sources', '$*($P/src/*.cpp, $P/src/*/*.cpp, $P/src/*/*/*.cpp)')
+define('Objects', '$(p:obj $(move $Sources, $P/src, $B))')
+define('Program', '$(p:bin $B/main)')
+define('Flags', '$c:exceptions')
+
+@target
+def objects():
+  for fin, fout in foreach_split('$Sources', '$Objects'):
+    objects.add('$fin', '$fout', '$c:cpp $c:compileonly $Flags $"{<} $(c:objout $@)')
+
+@target
+def program():
+  program.requires(objects)
+  program.add('$Objects', '$Program', '$c:cpp $Flags $!{<} $(c:binout $@)')
