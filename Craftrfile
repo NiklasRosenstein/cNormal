@@ -1,0 +1,19 @@
+# lib.cxx.nr.cnormal
+
+load_module('lang.cxx.*')
+
+cNormal = Framework('cNormal',
+  include = [local('src')]
+)
+
+obj = cpp_compile(
+  sources = glob(['src/**/*.cpp']),
+  frameworks = [cNormal]
+)
+
+main_bin = cxx_binary(
+  inputs = obj,
+  output = 'main'
+)
+
+main = gentarget([[main_bin]], explicit=True)
